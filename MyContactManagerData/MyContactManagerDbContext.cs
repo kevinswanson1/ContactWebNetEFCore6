@@ -10,11 +10,11 @@ namespace MyContactManagerData
 		public DbSet<State> States { get; set; }
 		public DbSet<Contact> Contacts { get; set; }
 
-        public MyContactManagerDbContext()
-        {
-            // Purposefully empty: Necessary for Scaffold
-        }
-        public MyContactManagerDbContext(DbContextOptions options)
+		public MyContactManagerDbContext()
+		{
+			// Purposefully empty: Necessary for Scaffold
+		}
+		public MyContactManagerDbContext(DbContextOptions options)
 			: base(options)
 		{
 			// Purposefully empty: Set options appropriately
