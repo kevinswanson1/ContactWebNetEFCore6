@@ -2,6 +2,8 @@ using ContactWebNetEFCore6.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyContactManagerData;
+using MyContactManagerRepositories;
+using MyContactManagerServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,15 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 // Add services for controllers with views
 builder.Services.AddControllersWithViews();
+
+// FIX: InvalidOperationException: Unable to resolve service for type 'MyContactManagerServices.IStatesService'
+// while attempting to activate 'ContactWebNetEFCore6.Controllers.StatesController'.
+// Consider the order of the Builder Services AddScoped command statements. Since in the layers, the services
+// reference the repositories, so we want to build them first.
+builder.Services.AddScoped<IStatesRepository, StatesRepository>();
+builder.Services.AddScoped<IStatesService, StatesService>();
+builder.Services.AddScoped<IContactsRepository, ContactsRepository>();
+builder.Services.AddScoped<IContactsService, ContactsService>();
 
 var app = builder.Build();
 
